@@ -20,8 +20,10 @@ def rotate_around_z(matrix, ang):
 
 def gauss(m, h0, w, y0, hlocz, h):
     delta_h = h - (h0 + hlocz)
+    print(hlocz)
     power = -((delta_h ** 2) / (2 * (w ** 2)))
     y = y0 + m * math.e ** power
+    print ("power", power)
     return y
 
 def get_rotation_matrix(x, y, z): # Из книжки
@@ -39,8 +41,13 @@ def get_rotation_matrix(x, y, z): # Из книжки
 
 def euler (matrix, x, y, z):
     rot = get_rotation_matrix(x, y, z)
-    rot_inv = get_rotation_matrix(-z, -y, -x)
-    res = np.matmul(rot, matrix);
+    # rot_inv = get_rotation_matrix(-z, -y, -x)
+    res = np.matmul(rot, matrix)
+    rot_inv = rot.transpose()
+    # if (rot_inv == get_rotation_matrix(-z, -y, -x)):
+    # print ("TRANSPOSED:\n", rot_inv, "\n")
+    # print("INVERSED:\n", get_rotation_matrix(-z, -y, -x), "\n")
+
     res = np.matmul(res, rot_inv)
     return res
 
@@ -57,7 +64,9 @@ def rotate_diag(axx, ayy, azz, x, y, z):
 
 def calculate_hlocz(s0, b):
     # res = np.matmul(np.array([0, 0, s0]), np.asarray(b)) на бумажке
-    res = np.matmul(np.asarray(b), np.array([0, 0, s0])) # в книге
+    # res = np.matmul(np.asarray(b), np.array([0, 0, s0])) # в книге
+    res = np.matmul(np.asarray(b), np.array([[0], [0], [s0]]))
+    # print (res)
     res = res[2]
     return res
 
@@ -102,9 +111,10 @@ param = (1, 50, 8, 0, 20, 20, -30, 1)
 
 fig = plt.figure()
 
-data_x = [x for x in range(101)]
+data_x = [x*5 for x in range(21)]
 data_y = integr(data_x, param)
-print(data_y)
+
+# print(data_y)
 
 # data_y = [integrate.tplquad(super, 0.0, pp, 0.0, pp, 0.0, pp, args=(h, param))[0] for h in data_x]
 # data_y = [gauss(1, 50, 15, 0, hlocz, x) for x in data_x]
