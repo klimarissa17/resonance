@@ -8,13 +8,20 @@ def gauss(m=1, b0=10, w=0.25, y0=0, **d):
     pow = -(((d['h'] - (b0 + d['b_ind'])) ** 2) / (2 * (w ** 2)))
     res = y0 + m * exp(pow)
     return res
+#в строчку ниже введите параметры, где start, end и step задают диапазон по полю,
+# m - амплитуда, w - ширина линии, b0 -- внешнее поле, y0 -- шум, axx-azz - компоненты
+# тензора, discr -- частота интегрирования по углам
+#ATTENTION: те же start, end и step ввести в ф-ю draw! (ниже)
 
-def integrate(num, foo, m = 1, w=1, b0 = 10, y0 = 0, axx = 0, ayy = 0, azz = 0, discr = 300):
+def integrate(start=0, end=10, step=0.1, m = 1, w=1, b0 = 10, y0 = 0, axx = 0, ayy = 0, azz = 0, discr = 200): #defaults
     res = []
     sum = 0
     pp = pi * 2
+    ran = end - start
+    num = int(ran//step)
+    foo = lambda x: start + x * step
     for h in range(num):
-        for y in range(discr):
+        for y in range(int(discr)):
             for x in range(discr//2):
                 b = axx * (sin(x * pp / discr) ** 2) * (cos(y * pp / discr) ** 2) + \
                     ayy * (sin(x * pp / discr) ** 2) * (sin(y * pp / discr) ** 2) + \
@@ -33,7 +40,10 @@ def integrate(num, foo, m = 1, w=1, b0 = 10, y0 = 0, axx = 0, ayy = 0, azz = 0, 
     return res
 
 
-def draw(num, foo, data_y):
+def draw(data_y, start=0, end=10, step=0.1):
+    ran = end - start
+    num = int(ran // step)
+    foo = lambda x: start + x * step
     data_x = [foo(h) for h in range(num)]
     text = data_y.pop()
     fig = plt.figure()
@@ -41,9 +51,5 @@ def draw(num, foo, data_y):
     plt.title(text, fontsize=10, color='red')
     plt.show()
 
-num = 100
 
-def foo(x):
-    return  x/10
-
-# draw(foo, num)
+draw(integrate())
