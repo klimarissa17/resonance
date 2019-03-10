@@ -1,3 +1,7 @@
+# WARNING: ЭТОТ ФАЙЛ ОТДЕЛЬНО ЗАПУСКАТЬ НЕ НУЖНО
+# НУЖНО ЗАПУСКАТЬ ТОЛЬКО main.py
+
+
 import matplotlib.pyplot as plt
 from math import *
 from collections import OrderedDict
@@ -8,7 +12,8 @@ def gauss(m=1, b0=10, w=0.25, y0=0, **d):
     res = y0 + m * exp(pow)
     return res
 
-
+# ПАРАМЕТРЫ В СТРОКЕ НИЖЕ -- НЕ ТРОГАТЬ,
+# РЕДАКТИРОВАТЬ ЗНАЧЕНИЯ НУЖНО В ФАЙЛЕ main.py
 def integrate(start=0, end=10, step=0.1, m=1, w=1, b0=10, y0=0, axx=0, ayy=0, azz=0, discr=200): #defaults
     data_y = []
     sum = 0

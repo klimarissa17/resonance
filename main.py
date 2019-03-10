@@ -1,5 +1,6 @@
-import numpy as np
-import matplotlib.pyplot as plt
+# ЭТО -- ОСНОВНОЙ СКРИПТ,
+# ЗАПУСКАТЬ НАДО ИМЕННО И ТОЛЬКО ЕГО
+
 from easy import integrate, title, draw
 from filereader import read_data
 values = {
@@ -15,6 +16,8 @@ values = {
 'azz': 0.5, # компоненты тензора
 'discr': 200} # частота интегрирования по углам
 
+# в строке ниже задаётся имя файла с данными.
+# файл должен лежать В ТОМ ЖЕ КАТАЛОГЕ, что и main.py
 file = 'data.dat'
 experimental = read_data(file)
 theoretical = integrate(**values)
