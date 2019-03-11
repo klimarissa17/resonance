@@ -1,6 +1,6 @@
 from tkinter import *   ## notice lowercase 't' in tkinter here
-from easy import integrate
-from easy import draw
+from maths import integrate
+from maths import draw
 class Field:
     def __init__(self, master, text):
         self.frame = Frame(master, background=master['background'])
