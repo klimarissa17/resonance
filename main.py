@@ -1,30 +1,29 @@
 # ЭТО -- ОСНОВНОЙ СКРИПТ,
 # ЗАПУСКАТЬ НАДО ИМЕННО И ТОЛЬКО ЕГО
 
-from maths import integrate, title, draw
+from maths import integrate
+from drawing import title, draw
 from readwrite import read_data, write_data
 values = {
-'start':6.5,
-'end':7,
+'start':0.5,
+'end':1.5,
 'step':0.005,
-'m': 1,       # амплитуда
-'w':0.001,    # ширина линии
-'b0': 1,      # внешнее поле
-'y0': 0,      # шум
-'axx': 1,     # компоненты тензора
-'ayy': 0,     # компоненты тензора
-'azz': 0.5,   # компоненты тензора
-'discr': 200} # частота интегрирования по углам
+'m': 1,         # амплитуда
+'w':0.02,       # ширина линии
+'b0': 0.9,      # внешнее поле
+'y0': 0,        # шум
+'axx': 0.07,    # компоненты тензора
+'ayy': 0.22,    # компоненты тензора
+'azz': -0.15,   # компоненты тензора
+'discr': 250}   # частота интегрирования по углам
 
 # в строке ниже задаётся имя файла с данными.
 # файл должен лежать В ТОМ ЖЕ КАТАЛОГЕ, что и main.py
-file = 'data.dat'
+
+file = 'data.txt'   # имя файла
 experimental = read_data(file)
-print(experimental[0])
-print("\n\n")
-print(experimental[1])
 theoretical = integrate(**values)
 title = title(values)
 draw(experimental, theoretical, title)
 
-write_data('res.dat', theoretical[0], theoretical[1])
+write_data('result.txt', theoretical[0], theoretical[1])

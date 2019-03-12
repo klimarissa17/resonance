@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 
 
-def draw(first, second, title = '', size = (8, 8)):
+def draw(first, second, title = '', size = (5, 3)):
     fig = plt.figure(figsize=size)
     ax = fig.add_subplot(1, 1, 1)
     ax.plot(first[0], first[1], '.')
