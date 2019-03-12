@@ -27,3 +27,4 @@ title = title(values)
 draw(experimental, theoretical, title)
 
 write_data('result.txt', theoretical[0], theoretical[1])
+
