@@ -89,15 +89,24 @@ with open('1.txt', 'r') as file:
     lines = file.read().splitlines()
     data = [line.split(sep='\t') for line in lines]
     data = list(zip(*data))
+    data = [list(map(float, elem)) for elem in data]
+    extr = [min(data[i]) for i in range(4)]
+    extr.extend([max(data[i]) for i in range(4)])
+    y_max = max(extr)
+    y_min = min(extr)
+    rng = y_max - y_min
+    yticks = [y_min + (rng/30) * i for i in range(31)]
+    yticks.extend(extr)
+    print(extr)
+    yticks = list(set(yticks))
 
     fig = plt.figure(figsize=(60, 45))
     ax = fig.add_subplot(1, 1, 1)
-    #ax.get_xaxis().tick_bottom()
-    #ax.get_yaxis().tick_left()
     ax.plot(data[0], data[1])
-    plt.xticks([data[0][i] for i in range(len(data[0])) if i % 10 == 0])
-    # ax.plot(data[0], data[2])
-    # ax.plot(data[0], data[3])
+    plt.xticks([data[0][i] for i in range(len(data[0])) if i % 20 == 0])
+    plt.yticks(yticks, fontsize=6)
+    ax.plot(data[0], data[2])
+    ax.plot(data[0], data[3])
     ax.set_title('hohoho')
     plt.show()
 
