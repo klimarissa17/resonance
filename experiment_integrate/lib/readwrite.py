@@ -92,7 +92,21 @@ def read_from_extra_file(filename):
         data = file.read()
         data_x = data.split(sep='\n')
         data_x = [float(i) for i in data_x]
-    return data_x
+        res = []
+        for i in data_x:
+            try:
+                res.append(float(i))
+            except ValueError:
+                pass
+    return
+
+def write_data(filename, data_x):
+    with open(filename, 'w') as file:
+        for row in data_x:
+            file.write(' '.join(map(str, row)) + '\n')
+
+
+
 
 def prepare_data(filename):
     remove_last_blankline(filename)
