@@ -82,7 +82,7 @@ def get_values_from_1D_file(filename):
         return data
 
 def write_integration_result(data_x, data_y, lower='', higher=''):
-    with open('integral ' + str(lower) + '-' + str(higher), 'w') as file:
+    with open('integral ' + str(lower) + '-' + str(higher) + '.txt', 'w') as file:
         for x, y in zip(data_x, data_y):
             file.write(str(x) + '\t' + str(y) + '\n')
     return
@@ -98,7 +98,7 @@ def read_from_extra_file(filename):
                 res.append(float(i))
             except ValueError:
                 pass
-    return
+    return res
 
 def write_data(filename, data_x):
     with open(filename, 'w') as file:
