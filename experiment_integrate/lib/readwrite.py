@@ -81,8 +81,16 @@ def get_values_from_1D_file(filename):
         data = [list(map(float, elem)) for elem in data]
         return data
 
+def get_table(filename):
+    with open(filename, 'r') as file:
+        lines = file.read().splitlines()
+        data = [line.split(sep='\t') for line in lines]
+        data = [list(map(float, elem)) for elem in data]
+        return data
+
 def write_integration_result(data_x, data_y, lower='', higher=''):
-    with open('integral ' + str(lower) + '-' + str(higher), 'w') as file:
+    with open('integral ' +
+              str(lower) + '-' + str(higher), 'w') as file:
         for x, y in zip(data_x, data_y):
             file.write(str(x) + '\t' + str(y) + '\n')
     return
@@ -91,19 +99,21 @@ def read_from_extra_file(filename):
     with open(filename, 'r') as file:
         data = file.read()
         data_x = data.split(sep='\n')
-        data_x = [float(i) for i in data_x]
+        # data_x = [float(i) for i in data_x]
         res = []
         for i in data_x:
             try:
                 res.append(float(i))
             except ValueError:
                 pass
-    return
+    return res
 
 def write_data(filename, data_x):
     with open(filename, 'w') as file:
         for row in data_x:
-            file.write(' '.join(map(str, row)) + '\n')
+            k = ('\t'.join(map(str, row))) + '\n'
+            file.write(k)
+    return
 
 
 
