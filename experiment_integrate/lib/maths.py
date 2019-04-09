@@ -31,12 +31,14 @@ def main_calculation(input_file, extra_file, start, end, param):
         data = get_values_from_1D_file(str(i+1) + '.txt')
         res = integrate(start, end, data[0], data[param])
         integration_results.append(res)
-    print(os.getcwd())
     os.chdir(os.getcwd() + '/..')
     from experiment_integrate.lib.readwrite import read_from_extra_file
+    print(os.getcwd())
     data_x = read_from_extra_file(extra_file)
+    print(os.getcwd())
+    print(integration_results)
     write_integration_result(data_x, integration_results, lower=start, higher=end)
-    from experiment_integrate.lib.drawing import draw_result_of_integration
+    from experiment_integrate.lib.drawing import draw_result
 
-    draw_result_of_integration(extra_file, integration_results)
+    draw_result(filename=extra_file, data_y=integration_results)
     return integration_results

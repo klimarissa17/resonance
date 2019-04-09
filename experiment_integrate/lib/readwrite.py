@@ -89,8 +89,8 @@ def get_table(filename):
         return data
 
 def write_integration_result(data_x, data_y, lower='', higher=''):
-    with open('integral ' +
-              str(lower) + '-' + str(higher), 'w') as file:
+
+    with open('integral ' + str(lower) + '-' + str(higher) + '.txt', 'w') as file:
         for x, y in zip(data_x, data_y):
             file.write(str(x) + '\t' + str(y) + '\n')
     return
