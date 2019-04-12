@@ -23,10 +23,13 @@ def draw_1D_file(filename):
     ax.set_title('measurements')
     plt.show()
 
-def draw_result(filename='', data_x=[], data_y=[]):
+def draw_result(filename='', data_x=[], data_y=[], dotted = False):
         if not data_x:
             data_x = read_from_extra_file(filename)
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
-        ax.plot(data_x, data_y)
+        if dotted:
+            ax.plot(data_x, data_y, '.')
+        else:
+            ax.plot(data_x, data_y)
         plt.show()

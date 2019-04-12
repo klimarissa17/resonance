@@ -48,7 +48,7 @@ def get_x(line):
     return float(lst[2])
 
 
-def separate_2D_file(filename):
+def separate_2D_file(filename, two_sided=False):
     with open(filename, 'r') as input:
         line = input.readline()
         dir_name = os.getcwd() + '/1D_files/'
@@ -76,15 +76,16 @@ def separate_2D_file(filename):
                     except IndexError:
                         x = 0
                     k += 1
-                for cnt in range(k+1):
-                    output.write(newline)
-                    output.flush()
-                    line = input.readline()
-                    try:
-                        newline = format_line(line)
-                        x = get_x(line)
-                    except IndexError:
-                        x = 0
+                if two_sided:
+                    for cnt in range(k+1):
+                        output.write(newline)
+                        output.flush()
+                        line = input.readline()
+                        try:
+                            newline = format_line(line)
+                            x = get_x(line)
+                        except IndexError:
+                            x = 0
 
 
 def get_values_from_1D_file(filename):
@@ -130,9 +131,9 @@ def write_data(filename, data_x):
     return
 
 
-def prepare_data(filename):
+def prepare_data(filename, two_sided=False):
     remove_last_blankline(filename)
-    separate_2D_file(filename)
+    separate_2D_file(filename, two_sided)
 
 def crop_file(filename, left, right):
     data = get_values_from_1D_file(filename)

@@ -40,7 +40,7 @@ def main_calculation(input_file, extra_file, start, end, param):
     write_integration_result(data_x, integration_results, lower=start, higher=end)
     from experiment_integrate.lib.drawing import draw_result
 
-    draw_result(filename=extra_file, data_y=integration_results)
+    draw_result(filename=extra_file, data_y=integration_results, dotted=True)
     return integration_results
 
 def frequency_to_field(delta_v, gamma, v0, h_i, h0, roundation=1):
