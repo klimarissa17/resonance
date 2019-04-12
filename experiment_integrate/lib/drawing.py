@@ -28,5 +28,5 @@ def draw_result(filename='', data_x=[], data_y=[]):
             data_x = read_from_extra_file(filename)
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
-        ax.plot(data_x, data_y, '.')
+        ax.plot(data_x, data_y)
         plt.show()

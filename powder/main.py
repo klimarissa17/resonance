@@ -1,9 +1,9 @@
 # ЭТО -- ОСНОВНОЙ СКРИПТ,
 # ЗАПУСКАТЬ НАДО ИМЕННО И ТОЛЬКО ЕГО
 
-from maths import integrate
-from drawing import title, draw
-from readwrite import read_data, write_data
+from powder.maths import powder_integration
+from powder.drawing import title, draw
+from powder.readwrite import read_data, write_data
 values = {
 'start':0.5,
 'end':1.5,
@@ -22,7 +22,7 @@ values = {
 
 file = 'data.txt'   # имя файла
 experimental = read_data(file)
-theoretical = integrate(**values)
+theoretical = powder_integration(**values)
 title = title(values)
 draw(experimental, theoretical, title)
 

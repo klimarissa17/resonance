@@ -37,6 +37,7 @@ def format_line(line):
     lst[0], lst[1], lst[2] = lst[2], lst[0], lst[1]
     lst[0] = lst[0][:-1]
     root_mean_square = rms(float(lst[1]), float(lst[2]))
+    # root_mean_square = round(root_mean_square)
     lst.append(str(root_mean_square))
     newline = '\t'.join(lst) + '\n'
     return newline
@@ -64,14 +65,27 @@ def separate_2D_file(filename):
             x = -1
             name = str(i+1) + '.txt'
             with open(name, 'w') as output:
+                k = 0
                 while(x != 0):
                     output.write(newline)
+                    output.flush()
                     line = input.readline()
                     try:
                         newline = format_line(line)
                         x = get_x(line)
                     except IndexError:
                         x = 0
+                    k += 1
+                for cnt in range(k+1):
+                    output.write(newline)
+                    output.flush()
+                    line = input.readline()
+                    try:
+                        newline = format_line(line)
+                        x = get_x(line)
+                    except IndexError:
+                        x = 0
+
 
 def get_values_from_1D_file(filename):
     with open(filename, 'r') as file:
@@ -116,9 +130,23 @@ def write_data(filename, data_x):
     return
 
 
-
-
 def prepare_data(filename):
     remove_last_blankline(filename)
     separate_2D_file(filename)
+
+def crop_file(filename, left, right):
+    data = get_values_from_1D_file(filename)
+    from experiment_integrate.lib.maths import find_closest_value
+    min_ind = find_closest_value(data[0], left)
+    max_ind = find_closest_value(data[0], right)
+    if max_ind < min_ind:
+        max_ind, min_ind = min_ind, max_ind
+
+    for i in range(4):
+        data[i] = data[i][min_ind:max_ind]
+
+    with open(filename, 'w') as file:
+        for x1, x2, x3, x4 in zip(data[0], data[1], data[2], data[3]):
+            file.write(str(x1) + '\t' + str(x2) + '\t' + str(x3) + '\t' + str(x4) + '\n')
+    return
 
