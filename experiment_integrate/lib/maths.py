@@ -37,14 +37,13 @@ def main_calculation(input_file, extra_file, start, end, param):
     data_x = read_from_extra_file(extra_file)
     print(os.getcwd())
     print(integration_results)
-    write_integration_result(data_x, integration_results, lower=start, higher=end)
+    write_integration_result(data_x, integration_results, lower=start, higher=end, name=input_file)
     from experiment_integrate.lib.drawing import draw_result
 
     draw_result(filename=extra_file, data_y=integration_results, dotted=True)
     return integration_results
 
 def frequency_to_field(delta_v, gamma, v0, h_i, h0, roundation=1):
-    gamma = gamma * 1000000
     x = 2 * (h0 + h_i) - (delta_v + (v0/gamma))
     x = (x // roundation) * roundation
     return x

@@ -11,24 +11,26 @@ from experiment_integrate.lib.maths import frequency_to_field
 
 
 
-path_to_file = r'/home/maria/stuff/test/fouried.txt'   # abcolute path to file
-log_file = 'log.txt'                                   # name of log file
-gamma = 16.546                                         # (MHz)
+path_to_file = r'C:\Users\NMR\Desktop\Example\17dec17-4_5K-79_36MHz_7_045T_2DF.txt'   # abcolute path to file
+log_file = '17dec17-4_5K-79_36MHz_7_045T_2D.tnt_log.txt'                                   # name of log file
+gamma = 16.546  * 1000000                                      # ПРОВЕРЬ ЕДИНИЦЫ ИЗМЕРЕНИЯ
 h0 = 7.045
 v0 = 79.36
-roundation = 6                                         # параметр округления
-left = -300                                            # границы, по которым обрезаюттся 1D-файлы
-right = 300
+roundation = 6                                          # параметр округления
+left = -300000                                          # границы, по которым обрезаюттся 1D-файлы
+right = 300000                                          # ПРОВЕРЬ ЕДИНИЦЫ ИЗМЕРЕНИЯсв зн    cd cd
 
-IS_IN_FREQUENCY = True                                 # True или False в зависимости от того, по частоте ли измерения
-                                                       # (и, соответственно, надо ли их пересчитывать в поле)
+IS_FIELD_SCANING = True                                 # True или False в зависимости от того, по полю ли измерения
+                                                        # (и, соответственно, надо ли их пересчитывать в поле) или
+                                                        # по частоте
 
+output_file = 'result(sum).txt'
 
 
 dir_name = os.path.split(path_to_file)[0]
 file_name = os.path.split(path_to_file)[1]
 os.chdir(dir_name)
-prepare_data(file_name)
+prepare_data(file_name, two_sided=True)
 os.chdir(dir_name)
 log = read_from_extra_file(log_file)
 os.chdir(dir_name)
@@ -45,7 +47,7 @@ for file in filenames:
     for file in filenames:
         data = get_table(file)
         for row in data:
-            if IS_IN_FREQUENCY:
+            if IS_FIELD_SCANING:
                 row[0] = frequency_to_field(row[0], gamma, v0, log[file_count], h0, roundation)
             else:
                 row[0] = (row[0] // roundation) * roundation
@@ -66,7 +68,7 @@ for file in filenames:
 result = [[key, sum_dict[key]] for key in sum_dict]
 os.chdir(dir_name)
 result.sort(key=lambda item: item[0])
-write_data('result', result)
+write_data(output_file, result)
 result = list(map(list, list(zip(*result))))
 draw_result(data_x=result[0], data_y=result[1])
 

@@ -103,9 +103,9 @@ def get_table(filename):
         data = [list(map(float, elem)) for elem in data]
         return data
 
-def write_integration_result(data_x, data_y, lower='', higher=''):
+def write_integration_result(data_x, data_y, lower='', higher='', name=''):
 
-    with open('integral ' + str(lower) + '-' + str(higher) + '.txt', 'w') as file:
+    with open(name + 'integral ' + str(lower) + '-' + str(higher) + '.txt', 'w') as file:
         for x, y in zip(data_x, data_y):
             file.write(str(x) + '\t' + str(y) + '\n')
     return
